@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poi-api 
+  namespace: tripviewer
+  labels:
+    app: tripviewer
+spec:
+  ports:
+  - port: 8080
+    targetPort: 80
+  selector:
+    app: poi-api
+---
+apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
+kind: Deployment
+metadata:
+  name: poi-api
+  namespace: tripviewer
+spec:
+  selector:
+    matchLabels:
+      app: poi-api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: poi-api 
+    spec:
+      containers:
+      - name: poi-api 
+        image: registryxna8703.azurecr.io/poi:1.0  # or just image: redis
+        ports:
+        - containerPort: 80
+        env:
+        - name: SQL_USER
+          value: "sqladminxNa8703"
+        - name: SQL_PASSWORD
+          value: "vZ5vb4Gt4"
+        - name: SQL_SERVER
+          value: "sqlserverxna8703.database.windows.net"

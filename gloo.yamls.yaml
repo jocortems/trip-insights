@@ -1,0 +1,3541 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    generation: 1
+    labels:
+      app: gloo
+      gloo: discovery
+    managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:replicas: {}
+          f:revisionHistoryLimit: {}
+          f:selector:
+            f:matchLabels:
+              .: {}
+              f:gloo: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:prometheus.io/path: {}
+                f:prometheus.io/port: {}
+                f:prometheus.io/scrape: {}
+              f:labels:
+                .: {}
+                f:gloo: {}
+            f:spec:
+              f:containers:
+                k:{"name":"discovery"}:
+                  .: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"POD_NAMESPACE"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef:
+                          .: {}
+                          f:apiVersion: {}
+                          f:fieldPath: {}
+                    k:{"name":"START_STATS_SERVER"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:resources: {}
+                  f:securityContext:
+                    .: {}
+                    f:allowPrivilegeEscalation: {}
+                    f:capabilities:
+                      .: {}
+                      f:drop: {}
+                    f:readOnlyRootFilesystem: {}
+                    f:runAsNonRoot: {}
+                    f:runAsUser: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+              f:dnsPolicy: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:serviceAccount: {}
+              f:serviceAccountName: {}
+              f:terminationGracePeriodSeconds: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:40:08Z"
+    name: discovery
+    namespace: gloo-system
+    resourceVersion: "178468"
+    selfLink: /apis/apps/v1/namespaces/gloo-system/deployments/discovery
+    uid: d8c72c88-d9ce-4c21-ab66-88ca62373a99
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        gloo: discovery
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: "9091"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          gloo: discovery
+      spec:
+        containers:
+        - env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: START_STATS_SERVER
+            value: "true"
+          image: quay.io/solo-io/discovery:1.4.0-beta14
+          imagePullPolicy: IfNotPresent
+          name: discovery
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 10101
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: discovery
+        serviceAccountName: discovery
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-17T17:40:08Z"
+      lastUpdateTime: "2020-06-17T17:40:08Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-06-17T17:39:41Z"
+      lastUpdateTime: "2020-06-17T17:40:08Z"
+      message: ReplicaSet "discovery-56454c7898" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    generation: 1
+    labels:
+      app: gloo
+      gloo: gateway
+    managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:replicas: {}
+          f:revisionHistoryLimit: {}
+          f:selector:
+            f:matchLabels:
+              .: {}
+              f:gloo: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:prometheus.io/path: {}
+                f:prometheus.io/port: {}
+                f:prometheus.io/scrape: {}
+              f:labels:
+                .: {}
+                f:gloo: {}
+            f:spec:
+              f:containers:
+                k:{"name":"gateway"}:
+                  .: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"POD_NAMESPACE"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef:
+                          .: {}
+                          f:apiVersion: {}
+                          f:fieldPath: {}
+                    k:{"name":"START_STATS_SERVER"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                    k:{"name":"VALIDATION_MUST_START"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":8443,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                  f:readinessProbe:
+                    .: {}
+                    f:failureThreshold: {}
+                    f:initialDelaySeconds: {}
+                    f:periodSeconds: {}
+                    f:successThreshold: {}
+                    f:tcpSocket:
+                      .: {}
+                      f:port: {}
+                    f:timeoutSeconds: {}
+                  f:resources: {}
+                  f:securityContext:
+                    .: {}
+                    f:allowPrivilegeEscalation: {}
+                    f:capabilities:
+                      .: {}
+                      f:drop: {}
+                    f:readOnlyRootFilesystem: {}
+                    f:runAsNonRoot: {}
+                    f:runAsUser: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/etc/gateway/validation-certs"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+              f:dnsPolicy: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:serviceAccount: {}
+              f:serviceAccountName: {}
+              f:terminationGracePeriodSeconds: {}
+              f:volumes:
+                .: {}
+                k:{"name":"validation-certs"}:
+                  .: {}
+                  f:name: {}
+                  f:secret:
+                    .: {}
+                    f:defaultMode: {}
+                    f:secretName: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:40:02Z"
+    name: gateway
+    namespace: gloo-system
+    resourceVersion: "178443"
+    selfLink: /apis/apps/v1/namespaces/gloo-system/deployments/gateway
+    uid: c24a6db6-7ca6-49fd-96b4-3e80f78feebd
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        gloo: gateway
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: "9091"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          gloo: gateway
+      spec:
+        containers:
+        - env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: START_STATS_SERVER
+            value: "true"
+          - name: VALIDATION_MUST_START
+            value: "true"
+          image: quay.io/solo-io/gateway:1.4.0-beta14
+          imagePullPolicy: IfNotPresent
+          name: gateway
+          ports:
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            tcpSocket:
+              port: 8443
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 10101
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/gateway/validation-certs
+            name: validation-certs
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: gateway
+        serviceAccountName: gateway
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: validation-certs
+          secret:
+            defaultMode: 420
+            secretName: gateway-validation-certs
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-17T17:40:02Z"
+      lastUpdateTime: "2020-06-17T17:40:02Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-06-17T17:39:41Z"
+      lastUpdateTime: "2020-06-17T17:40:02Z"
+      message: ReplicaSet "gateway-d7886cf67" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    generation: 1
+    labels:
+      app: gloo
+      gateway-proxy-id: gateway-proxy
+      gloo: gateway-proxy
+    managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gateway-proxy-id: {}
+            f:gloo: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:replicas: {}
+          f:revisionHistoryLimit: {}
+          f:selector:
+            f:matchLabels:
+              .: {}
+              f:gateway-proxy-id: {}
+              f:gloo: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:prometheus.io/path: {}
+                f:prometheus.io/port: {}
+                f:prometheus.io/scrape: {}
+              f:labels:
+                .: {}
+                f:gateway-proxy: {}
+                f:gateway-proxy-id: {}
+                f:gloo: {}
+            f:spec:
+              f:containers:
+                k:{"name":"gateway-proxy"}:
+                  .: {}
+                  f:args: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"POD_NAME"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef:
+                          .: {}
+                          f:apiVersion: {}
+                          f:fieldPath: {}
+                    k:{"name":"POD_NAMESPACE"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef:
+                          .: {}
+                          f:apiVersion: {}
+                          f:fieldPath: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":8080,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                    k:{"containerPort":8443,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                  f:resources: {}
+                  f:securityContext:
+                    .: {}
+                    f:allowPrivilegeEscalation: {}
+                    f:capabilities:
+                      .: {}
+                      f:add: {}
+                      f:drop: {}
+                    f:readOnlyRootFilesystem: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/etc/envoy"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+              f:dnsPolicy: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:serviceAccount: {}
+              f:serviceAccountName: {}
+              f:terminationGracePeriodSeconds: {}
+              f:volumes:
+                .: {}
+                k:{"name":"envoy-config"}:
+                  .: {}
+                  f:configMap:
+                    .: {}
+                    f:defaultMode: {}
+                    f:name: {}
+                  f:name: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:39:58Z"
+    name: gateway-proxy
+    namespace: gloo-system
+    resourceVersion: "178421"
+    selfLink: /apis/apps/v1/namespaces/gloo-system/deployments/gateway-proxy
+    uid: 4b9d5a3d-16f6-4063-bf05-0f701a96d257
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        gateway-proxy-id: gateway-proxy
+        gloo: gateway-proxy
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: "8081"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          gateway-proxy: live
+          gateway-proxy-id: gateway-proxy
+          gloo: gateway-proxy
+      spec:
+        containers:
+        - args:
+          - --disable-hot-restart
+          env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: quay.io/solo-io/gloo-envoy-wrapper:1.4.0-beta14
+          imagePullPolicy: IfNotPresent
+          name: gateway-proxy
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add:
+              - NET_BIND_SERVICE
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/envoy
+            name: envoy-config
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: gateway-proxy
+        serviceAccountName: gateway-proxy
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: gateway-proxy-envoy-config
+          name: envoy-config
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-17T17:39:58Z"
+      lastUpdateTime: "2020-06-17T17:39:58Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-06-17T17:39:41Z"
+      lastUpdateTime: "2020-06-17T17:39:58Z"
+      message: ReplicaSet "gateway-proxy-65f4b5c9f8" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    generation: 1
+    labels:
+      app: gloo
+      gloo: gloo
+    managedFields:
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+        f:spec:
+          f:progressDeadlineSeconds: {}
+          f:replicas: {}
+          f:revisionHistoryLimit: {}
+          f:selector:
+            f:matchLabels:
+              .: {}
+              f:gloo: {}
+          f:strategy:
+            f:rollingUpdate:
+              .: {}
+              f:maxSurge: {}
+              f:maxUnavailable: {}
+            f:type: {}
+          f:template:
+            f:metadata:
+              f:annotations:
+                .: {}
+                f:prometheus.io/path: {}
+                f:prometheus.io/port: {}
+                f:prometheus.io/scrape: {}
+              f:labels:
+                .: {}
+                f:gloo: {}
+            f:spec:
+              f:containers:
+                k:{"name":"gloo"}:
+                  .: {}
+                  f:env:
+                    .: {}
+                    k:{"name":"POD_NAMESPACE"}:
+                      .: {}
+                      f:name: {}
+                      f:valueFrom:
+                        .: {}
+                        f:fieldRef:
+                          .: {}
+                          f:apiVersion: {}
+                          f:fieldPath: {}
+                    k:{"name":"START_STATS_SERVER"}:
+                      .: {}
+                      f:name: {}
+                      f:value: {}
+                  f:image: {}
+                  f:imagePullPolicy: {}
+                  f:name: {}
+                  f:ports:
+                    .: {}
+                    k:{"containerPort":9977,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                    k:{"containerPort":9979,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                    k:{"containerPort":9988,"protocol":"TCP"}:
+                      .: {}
+                      f:containerPort: {}
+                      f:name: {}
+                      f:protocol: {}
+                  f:readinessProbe:
+                    .: {}
+                    f:failureThreshold: {}
+                    f:initialDelaySeconds: {}
+                    f:periodSeconds: {}
+                    f:successThreshold: {}
+                    f:tcpSocket:
+                      .: {}
+                      f:port: {}
+                    f:timeoutSeconds: {}
+                  f:resources:
+                    .: {}
+                    f:requests:
+                      .: {}
+                      f:cpu: {}
+                      f:memory: {}
+                  f:securityContext:
+                    .: {}
+                    f:allowPrivilegeEscalation: {}
+                    f:capabilities:
+                      .: {}
+                      f:drop: {}
+                    f:readOnlyRootFilesystem: {}
+                    f:runAsNonRoot: {}
+                    f:runAsUser: {}
+                  f:terminationMessagePath: {}
+                  f:terminationMessagePolicy: {}
+                  f:volumeMounts:
+                    .: {}
+                    k:{"mountPath":"/etc/gloo"}:
+                      .: {}
+                      f:mountPath: {}
+                      f:name: {}
+                      f:readOnly: {}
+              f:dnsPolicy: {}
+              f:restartPolicy: {}
+              f:schedulerName: {}
+              f:securityContext: {}
+              f:serviceAccount: {}
+              f:serviceAccountName: {}
+              f:terminationGracePeriodSeconds: {}
+              f:volumes:
+                .: {}
+                k:{"name":"labels-volume"}:
+                  .: {}
+                  f:downwardAPI:
+                    .: {}
+                    f:defaultMode: {}
+                    f:items: {}
+                  f:name: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: apps/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:deployment.kubernetes.io/revision: {}
+        f:status:
+          f:availableReplicas: {}
+          f:conditions:
+            .: {}
+            k:{"type":"Available"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+            k:{"type":"Progressing"}:
+              .: {}
+              f:lastTransitionTime: {}
+              f:lastUpdateTime: {}
+              f:message: {}
+              f:reason: {}
+              f:status: {}
+              f:type: {}
+          f:observedGeneration: {}
+          f:readyReplicas: {}
+          f:replicas: {}
+          f:updatedReplicas: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:40:00Z"
+    name: gloo
+    namespace: gloo-system
+    resourceVersion: "178433"
+    selfLink: /apis/apps/v1/namespaces/gloo-system/deployments/gloo
+    uid: 788513c1-8489-4e6e-bdb8-c88942ddc9ad
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        gloo: gloo
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          prometheus.io/path: /metrics
+          prometheus.io/port: "9091"
+          prometheus.io/scrape: "true"
+        creationTimestamp: null
+        labels:
+          gloo: gloo
+      spec:
+        containers:
+        - env:
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          - name: START_STATS_SERVER
+            value: "true"
+          image: quay.io/solo-io/gloo:1.4.0-beta14
+          imagePullPolicy: IfNotPresent
+          name: gloo
+          ports:
+          - containerPort: 9977
+            name: grpc-xds
+            protocol: TCP
+          - containerPort: 9988
+            name: grpc-validation
+            protocol: TCP
+          - containerPort: 9979
+            name: wasm-cache
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 10
+            initialDelaySeconds: 1
+            periodSeconds: 2
+            successThreshold: 1
+            tcpSocket:
+              port: 9977
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 500m
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 10101
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/gloo
+            name: labels-volume
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: gloo
+        serviceAccountName: gloo
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - downwardAPI:
+            defaultMode: 420
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.labels
+              path: labels
+          name: labels-volume
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-06-17T17:40:00Z"
+      lastUpdateTime: "2020-06-17T17:40:00Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-06-17T17:39:41Z"
+      lastUpdateTime: "2020-06-17T17:40:00Z"
+      message: ReplicaSet "gloo-56fd79dd97" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      discovery.solo.io/function_discovery: disabled
+      gloo: gateway
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovery.solo.io/function_discovery: {}
+            f:gloo: {}
+        f:spec:
+          f:ports:
+            .: {}
+            k:{"port":443,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector:
+            .: {}
+            f:gloo: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: gateway
+    namespace: gloo-system
+    resourceVersion: "178267"
+    selfLink: /api/v1/namespaces/gloo-system/services/gateway
+    uid: 42be0043-d3dd-4e7b-ba8e-7a26ea7a7e6f
+  spec:
+    clusterIP: 172.24.159.128
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      gloo: gateway
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+    labels:
+      app: gloo
+      gateway-proxy-id: gateway-proxy
+      gloo: gateway-proxy
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gateway-proxy-id: {}
+            f:gloo: {}
+        f:spec:
+          f:externalTrafficPolicy: {}
+          f:ports:
+            .: {}
+            k:{"port":80,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":443,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector:
+            .: {}
+            f:gateway-proxy: {}
+            f:gateway-proxy-id: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:finalizers:
+            .: {}
+            v:"service.kubernetes.io/load-balancer-cleanup": {}
+        f:status:
+          f:loadBalancer:
+            f:ingress: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:40:02Z"
+    name: gateway-proxy
+    namespace: gloo-system
+    resourceVersion: "178446"
+    selfLink: /api/v1/namespaces/gloo-system/services/gateway-proxy
+    uid: 523883fd-38f9-42c8-ba9b-eeab7e8660b9
+  spec:
+    clusterIP: 172.24.151.92
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: http
+      nodePort: 30331
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+    - name: https
+      nodePort: 31325
+      port: 443
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      gateway-proxy: live
+      gateway-proxy-id: gateway-proxy
+    sessionAffinity: None
+    type: LoadBalancer
+  status:
+    loadBalancer:
+      ingress:
+      - ip: 40.125.62.31
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      gloo: gloo
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+        f:spec:
+          f:ports:
+            .: {}
+            k:{"port":9966,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":9977,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":9979,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+            k:{"port":9988,"protocol":"TCP"}:
+              .: {}
+              f:name: {}
+              f:port: {}
+              f:protocol: {}
+              f:targetPort: {}
+          f:selector:
+            .: {}
+            f:gloo: {}
+          f:sessionAffinity: {}
+          f:type: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: gloo
+    namespace: gloo-system
+    resourceVersion: "178263"
+    selfLink: /api/v1/namespaces/gloo-system/services/gloo
+    uid: 6107bd3c-5434-4c07-9019-5084eeff64d6
+  spec:
+    clusterIP: 172.24.162.17
+    ports:
+    - name: grpc-xds
+      port: 9977
+      protocol: TCP
+      targetPort: 9977
+    - name: grpc-validation
+      port: 9988
+      protocol: TCP
+      targetPort: 9988
+    - name: metrics-grpc
+      port: 9966
+      protocol: TCP
+      targetPort: 9966
+    - name: wasm-cache
+      port: 9979
+      protocol: TCP
+      targetPort: 9979
+    selector:
+      gloo: gloo
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    envoy.yaml: |
+      node:
+        cluster: gateway
+        id: "{{.PodName}}.{{.PodNamespace}}"
+        metadata:
+          # role's value is the key for the in-memory xds cache (projects/gloo/pkg/xds/envoy.go)
+          role: "{{.PodNamespace}}~gateway-proxy"
+      stats_sinks:
+        - name: envoy.metrics_service
+          config:
+            grpc_service:
+              envoy_grpc: {cluster_name: gloo.gloo-system.svc.cluster.local:9966}
+      static_resources:
+        listeners: # if or $statsConfig.enabled (or $spec.readConfig $spec.extraListenersHelper) # $spec.extraListenersHelper
+          - name: prometheus_listener
+            address:
+              socket_address:
+                address: 0.0.0.0
+                port_value: 8081
+            filter_chains:
+              - filters:
+                  - name: envoy.http_connection_manager
+                    config:
+                      codec_type: auto
+                      stat_prefix: prometheus
+                      route_config:
+                        name: prometheus_route
+                        virtual_hosts:
+                          - name: prometheus_host
+                            domains:
+                              - "*"
+                            routes:
+                              - match:
+                                  path: "/ready"
+                                  headers:
+                                  - name: ":method"
+                                    exact_match: GET
+                                route:
+                                  cluster: admin_port_cluster
+                              - match:
+                                  prefix: "/metrics"
+                                  headers:
+                                  - name: ":method"
+                                    exact_match: GET
+                                route:
+                                  prefix_rewrite: "/stats/prometheus"
+                                  cluster: admin_port_cluster
+                      http_filters:
+                        - name: envoy.router
+                          config: {} # if $statsConfig.enabled # if $spec.readConfig
+        clusters:
+        - name: gloo.gloo-system.svc.cluster.local:9977
+          alt_stat_name: xds_cluster
+          connect_timeout: 5.000s
+          load_assignment:
+            cluster_name: gloo.gloo-system.svc.cluster.local:9977
+            endpoints:
+            - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: gloo.gloo-system.svc.cluster.local
+                      port_value: 9977
+          http2_protocol_options: {}
+          upstream_connection_options:
+            tcp_keepalive: {}
+          type: STRICT_DNS
+          respect_dns_ttl: true
+        - name: wasm-cache
+          connect_timeout: 5.000s
+          load_assignment:
+            cluster_name: wasm-cache
+            endpoints:
+            - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: gloo.gloo-system.svc.cluster.local
+                      port_value: 9979
+          upstream_connection_options:
+            tcp_keepalive: {}
+          type: STRICT_DNS
+          respect_dns_ttl: true
+        - name: gloo.gloo-system.svc.cluster.local:9966
+          alt_stat_name: metrics_cluster
+          connect_timeout: 5.000s
+          load_assignment:
+              cluster_name: gloo.gloo-system.svc.cluster.local:9966
+              endpoints:
+              - lb_endpoints:
+                - endpoint:
+                      address:
+                          socket_address:
+                              address: gloo.gloo-system.svc.cluster.local
+                              port_value: 9966
+          http2_protocol_options: {}
+          type: STRICT_DNS # if .Values.accessLogger.enabled # if $spec.tracing
+        - name: admin_port_cluster
+          connect_timeout: 5.000s
+          type: STATIC
+          lb_policy: ROUND_ROBIN
+          load_assignment:
+            cluster_name: admin_port_cluster
+            endpoints:
+            - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: 127.0.0.1
+                      port_value: 19000 # if or $statsConfig.enabled ($spec.readConfig) # if $spec.tracing
+      dynamic_resources:
+        ads_config:
+          api_type: GRPC
+          rate_limit_settings: {}
+          grpc_services:
+          - envoy_grpc: {cluster_name: gloo.gloo-system.svc.cluster.local:9977}
+        cds_config:
+          ads: {}
+        lds_config:
+          ads: {}
+      admin:
+        access_log_path: /dev/null
+        address:
+          socket_address:
+            address: 127.0.0.1
+            port_value: 19000 # if (empty $spec.configMap.data) ## allows full custom # range $name, $spec := .Values.gatewayProxies# if .Values.gateway.enabled
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      gateway-proxy-id: gateway-proxy
+      gloo: gateway-proxy
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:data:
+          .: {}
+          f:envoy.yaml: {}
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gateway-proxy-id: {}
+            f:gloo: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: gateway-proxy-envoy-config
+    namespace: gloo-system
+    resourceVersion: "178243"
+    selfLink: /api/v1/namespaces/gloo-system/configmaps/gateway-proxy-envoy-config
+    uid: f71be3b9-69df-4e11-afb3-977f9692733d
+- apiVersion: v1
+  data:
+    USAGE_DATA: '{"EnvoyIdToUsage":{"gateway-proxy-65f4b5c9f8-fmmk2.gloo-system":{"EnvoyMetrics":{"HttpRequests":6,"TcpConnections":0,"Uptime":31086000000000},"LastRecordedAt":"2020-06-18T02:18:03.149807976Z","FirstRecordedAt":"2020-06-17T17:40:02.924025101Z","Active":true}}}'
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      gloo: gloo-usage
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:data:
+          .: {}
+          f:USAGE_DATA: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-18T02:18:03Z"
+    name: gloo-usage
+    namespace: gloo-system
+    resourceVersion: "262134"
+    selfLink: /api/v1/namespaces/gloo-system/configmaps/gloo-usage
+    uid: 987314b2-5a74-4351-8b43-0255c4421452
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:22Z"
+    name: default
+    namespace: gloo-system
+    resourceVersion: "178126"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/default
+    uid: ece8d8bd-f0b6-4856-acdc-b68d5d1ddce5
+  secrets:
+  - name: default-token-m2ldl
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      gloo: discovery
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:secrets:
+          .: {}
+          k:{"name":"discovery-token-44wr4"}:
+            .: {}
+            f:name: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: discovery
+    namespace: gloo-system
+    resourceVersion: "178241"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/discovery
+    uid: f16d09cd-74ba-48b8-8fa5-6ecca8649573
+  secrets:
+  - name: discovery-token-44wr4
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      gloo: gateway
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:secrets:
+          .: {}
+          k:{"name":"gateway-token-5sfpf"}:
+            .: {}
+            f:name: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: gateway
+    namespace: gloo-system
+    resourceVersion: "178246"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/gateway
+    uid: 09f9d11e-0667-4074-90b3-b59509680c40
+  secrets:
+  - name: gateway-token-5sfpf
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      gloo: gateway-proxy
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:secrets:
+          .: {}
+          k:{"name":"gateway-proxy-token-4q9xt"}:
+            .: {}
+            f:name: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: gateway-proxy
+    namespace: gloo-system
+    resourceVersion: "178240"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/gateway-proxy
+    uid: 1c63f039-2da0-40db-9177-dc0491c1d876
+  secrets:
+  - name: gateway-proxy-token-4q9xt
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    labels:
+      app: gloo
+      gloo: gloo
+    managedFields:
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:gloo: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:secrets:
+          .: {}
+          k:{"name":"gloo-token-lr87c"}:
+            .: {}
+            f:name: {}
+      manager: kube-controller-manager
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: gloo
+    namespace: gloo-system
+    resourceVersion: "178247"
+    selfLink: /api/v1/namespaces/gloo-system/serviceaccounts/gloo
+    uid: b345b28c-8a38-4069-a404-b849f37fe9b5
+  secrets:
+  - name: gloo-token-lr87c
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: gateway.solo.io/v1
+  kind: Gateway
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    generation: 30
+    labels:
+      app: gloo
+    managedFields:
+    - apiVersion: gateway.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+        f:spec:
+          .: {}
+          f:bindAddress: {}
+          f:bindPort: {}
+          f:httpGateway: {}
+          f:proxyNames: {}
+          f:useProxyProto: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: gateway.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          .: {}
+          f:reported_by: {}
+          f:state: {}
+          f:subresource_statuses:
+            .: {}
+            f:*v1.Proxy.gloo-system.gateway-proxy:
+              .: {}
+              f:reported_by: {}
+              f:state: {}
+      manager: gateway
+      operation: Update
+      time: "2020-06-18T00:56:15Z"
+    name: gateway-proxy
+    namespace: gloo-system
+    resourceVersion: "248950"
+    selfLink: /apis/gateway.solo.io/v1/namespaces/gloo-system/gateways/gateway-proxy
+    uid: 99c99404-9075-4001-a97c-37dd73980f9f
+  spec:
+    bindAddress: '::'
+    bindPort: 8080
+    httpGateway: {}
+    proxyNames:
+    - gateway-proxy
+    useProxyProto: false
+  status:
+    reported_by: gateway
+    state: 1
+    subresource_statuses:
+      '*v1.Proxy.gloo-system.gateway-proxy':
+        reported_by: gloo
+        state: 1
+- apiVersion: gateway.solo.io/v1
+  kind: Gateway
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    generation: 30
+    labels:
+      app: gloo
+    managedFields:
+    - apiVersion: gateway.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+        f:spec:
+          .: {}
+          f:bindAddress: {}
+          f:bindPort: {}
+          f:httpGateway: {}
+          f:proxyNames: {}
+          f:ssl: {}
+          f:useProxyProto: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    - apiVersion: gateway.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          .: {}
+          f:reported_by: {}
+          f:state: {}
+          f:subresource_statuses:
+            .: {}
+            f:*v1.Proxy.gloo-system.gateway-proxy:
+              .: {}
+              f:reported_by: {}
+              f:state: {}
+      manager: gateway
+      operation: Update
+      time: "2020-06-18T00:56:16Z"
+    name: gateway-proxy-ssl
+    namespace: gloo-system
+    resourceVersion: "248951"
+    selfLink: /apis/gateway.solo.io/v1/namespaces/gloo-system/gateways/gateway-proxy-ssl
+    uid: 572aaa49-6951-4345-b09e-73430f96c550
+  spec:
+    bindAddress: '::'
+    bindPort: 8443
+    httpGateway: {}
+    proxyNames:
+    - gateway-proxy
+    ssl: true
+    useProxyProto: false
+  status:
+    reported_by: gateway
+    state: 1
+    subresource_statuses:
+      '*v1.Proxy.gloo-system.gateway-proxy':
+        reported_by: gloo
+        state: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: gloo.solo.io/v1
+  kind: Proxy
+  metadata:
+    creationTimestamp: "2020-06-18T00:56:13Z"
+    generation: 3
+    labels:
+      created_by: gateway
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-18T00:56:15Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:created_by: {}
+        f:spec:
+          .: {}
+          f:listeners: {}
+        f:status: {}
+      manager: gateway
+      operation: Update
+      time: "2020-06-18T00:56:20Z"
+    name: gateway-proxy
+    namespace: gloo-system
+    resourceVersion: "248966"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/proxies/gateway-proxy
+    uid: 94e0cc87-cfea-4406-8308-c7a4445474e6
+  spec:
+    listeners:
+    - bindAddress: '::'
+      bindPort: 8080
+      httpListener:
+        virtualHosts:
+        - domains:
+          - tripinsights.jorgecortes.ml
+          metadata:
+            sources:
+            - kind: '*v1.VirtualService'
+              name: trip-insights
+              namespace: gloo-system
+              observedGeneration: 2
+          name: gloo-system.trip-insights
+          routes:
+          - matchers:
+            - exact: /api/docs/user
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: userprofile
+                    namespace: api
+          - matchers:
+            - exact: /api/user
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: userprofile
+                    namespace: api
+          - matchers:
+            - methods:
+              - DELETE
+              - GET
+              - PATCH
+              - POST
+              regex: /api/user/[A-Fa-f0-9-]{36}
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: userprofile
+                    namespace: api
+          - matchers:
+            - exact: /api/metrics
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: user-api
+                    namespace: api
+          - matchers:
+            - exact: /api/api-docs
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: user-api
+                    namespace: api
+          - matchers:
+            - exact: /api/swagger-resources
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: user-api
+                    namespace: api
+          - matchers:
+            - exact: /api/documentation/user-java
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: user-api
+                    namespace: api
+          - matchers:
+            - exact: /api/docs/user-java
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: user-api
+                    namespace: api
+          - matchers:
+            - methods:
+              - PATCH
+              - POST
+              regex: /api/user-java/[A-Fa-f0-9-]{36}
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: user-api
+                    namespace: api
+          - matchers:
+            - exact: /api/user-java/healthcheck
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: user-api
+                    namespace: api
+          - matchers:
+            - exact: /api/json
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: trips-api
+                    namespace: api
+          - matchers:
+            - exact: /api/docs/trips
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: trips-api
+                    namespace: api
+          - matchers:
+            - methods:
+              - PATCH
+              - POST
+              - GET
+              - DELETE
+              prefix: /api/trips/
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: trips-api
+                    namespace: api
+          - matchers:
+            - methods:
+              - GET
+              - POST
+              prefix: /api/poi
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: poi-api
+                    namespace: api
+          - matchers:
+            - exact: /api/docs/poi
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: poi-api
+                    namespace: api
+          - matchers:
+            - exact: /swagger/docs/poi
+              methods:
+              - GET
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: poi-api
+                    namespace: api
+          - matchers:
+            - exact: /UserProfile
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: tripviewer
+                    namespace: web
+          - matchers:
+            - exact: /Trip
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: tripviewer
+                    namespace: web
+          - matchers:
+            - exact: /
+            metadata:
+              sources:
+              - kind: '*v1.VirtualService'
+                name: trip-insights
+                namespace: gloo-system
+                observedGeneration: 2
+            routeAction:
+              single:
+                kube:
+                  port: 8080
+                  ref:
+                    name: tripviewer
+                    namespace: web
+      metadata:
+        sources:
+        - kind: '*v1.Gateway'
+          name: gateway-proxy
+          namespace: gloo-system
+          observedGeneration: 30
+      name: listener-::-8080
+      useProxyProto: false
+    - bindAddress: '::'
+      bindPort: 8443
+      httpListener: {}
+      metadata:
+        sources:
+        - kind: '*v1.Gateway'
+          name: gateway-proxy-ssl
+          namespace: gloo-system
+          observedGeneration: 30
+      name: listener-::-8443
+      useProxyProto: false
+  status:
+    reported_by: gloo
+    state: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: gloo.solo.io/v1
+  kind: Settings
+  metadata:
+    creationTimestamp: "2020-06-17T17:39:41Z"
+    generation: 1
+    labels:
+      app: gloo
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+        f:spec:
+          .: {}
+          f:discovery:
+            .: {}
+            f:fdsMode: {}
+          f:discoveryNamespace: {}
+          f:gateway:
+            .: {}
+            f:readGatewaysFromAllNamespaces: {}
+            f:validation:
+              .: {}
+              f:alwaysAccept: {}
+              f:proxyValidationServerAddr: {}
+          f:gloo:
+            .: {}
+            f:disableKubernetesDestinations: {}
+            f:disableProxyGarbageCollection: {}
+            f:invalidConfigPolicy:
+              .: {}
+              f:invalidRouteResponseBody: {}
+              f:invalidRouteResponseCode: {}
+            f:xdsBindAddr: {}
+          f:kubernetesArtifactSource: {}
+          f:kubernetesConfigSource: {}
+          f:kubernetesSecretSource: {}
+          f:refreshRate: {}
+      manager: Go-http-client
+      operation: Update
+      time: "2020-06-17T17:39:41Z"
+    name: default
+    namespace: gloo-system
+    resourceVersion: "178302"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/settings/default
+    uid: fca00d7e-ffbb-4dda-bcae-9f950d841979
+  spec:
+    discovery:
+      fdsMode: WHITELIST
+    discoveryNamespace: gloo-system
+    gateway:
+      readGatewaysFromAllNamespaces: false
+      validation:
+        alwaysAccept: true
+        proxyValidationServerAddr: gloo:9988
+    gloo:
+      disableKubernetesDestinations: false
+      disableProxyGarbageCollection: false
+      invalidConfigPolicy:
+        invalidRouteResponseBody: Gloo Gateway has invalid configuration. Administrators
+          should run `glooctl check` to find and fix config errors.
+        invalidRouteResponseCode: 404
+      xdsBindAddr: 0.0.0.0:9977
+    kubernetesArtifactSource: {}
+    kubernetesConfigSource: {}
+    kubernetesSecretSource: {}
+    refreshRate: 60s
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"tripviewer"},"name":"poi-api","namespace":"api"},"spec":{"ports":[{"port":8080,"targetPort":80}],"selector":{"app":"poi-api"}}}
+    creationTimestamp: "2020-06-17T17:40:12Z"
+    generation: 2
+    labels:
+      app: tripviewer
+      discovered_by: kubernetesplugin
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:12Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:19Z"
+    name: api-poi-api-8080
+    namespace: gloo-system
+    resourceVersion: "178522"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/api-poi-api-8080
+    uid: aafdc127-53d6-45c5-9e9e-7e21c2c3fab8
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        app: poi-api
+      serviceName: poi-api
+      serviceNamespace: api
+      servicePort: 8080
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"tripviewer"},"name":"trips-api","namespace":"api"},"spec":{"ports":[{"port":8080,"targetPort":80}],"selector":{"app":"trips-api"}}}
+    creationTimestamp: "2020-06-17T17:40:09Z"
+    generation: 2
+    labels:
+      app: tripviewer
+      discovered_by: kubernetesplugin
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:09Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:11Z"
+    name: api-trips-api-8080
+    namespace: gloo-system
+    resourceVersion: "178480"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/api-trips-api-8080
+    uid: d03c5c3b-efea-4c42-b28e-5f7d8b43f1f6
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        app: trips-api
+      serviceName: trips-api
+      serviceNamespace: api
+      servicePort: 8080
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"tripviewer"},"name":"user-api","namespace":"api"},"spec":{"ports":[{"port":8080,"targetPort":80}],"selector":{"app":"user-api"}}}
+    creationTimestamp: "2020-06-17T17:40:09Z"
+    generation: 2
+    labels:
+      app: tripviewer
+      discovered_by: kubernetesplugin
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:09Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:11Z"
+    name: api-user-api-8080
+    namespace: gloo-system
+    resourceVersion: "178483"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/api-user-api-8080
+    uid: 167d6bf4-2916-42d4-af10-f28c133d320b
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        app: user-api
+      serviceName: user-api
+      serviceNamespace: api
+      servicePort: 8080
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"tripviewer"},"name":"userprofile","namespace":"api"},"spec":{"ports":[{"port":8080,"targetPort":80}],"selector":{"app":"userprofile"}}}
+    creationTimestamp: "2020-06-17T17:40:13Z"
+    generation: 2
+    labels:
+      app: tripviewer
+      discovered_by: kubernetesplugin
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:13Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:21Z"
+    name: api-userprofile-8080
+    namespace: gloo-system
+    resourceVersion: "178531"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/api-userprofile-8080
+    uid: 7b708041-664a-416c-bfe6-50b87e1af1f4
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        app: userprofile
+      serviceName: userprofile
+      serviceNamespace: api
+      servicePort: 8080
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:16Z"
+    generation: 2
+    labels:
+      component: apiserver
+      discovered_by: kubernetesplugin
+      provider: kubernetes
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:component: {}
+            f:discovered_by: {}
+            f:provider: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:16Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:24Z"
+    name: default-kubernetes-443
+    namespace: gloo-system
+    resourceVersion: "178540"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/default-kubernetes-443
+    uid: ae5a3a24-a894-47a0-8c1e-503dfd149f50
+  spec:
+    discoveryMetadata: {}
+    kube:
+      serviceName: kubernetes
+      serviceNamespace: default
+      servicePort: 443
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:10Z"
+    generation: 2
+    labels:
+      app: gloo
+      discovered_by: kubernetesplugin
+      discovery.solo.io/function_discovery: disabled
+      gloo: gateway
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+            f:discovery.solo.io/function_discovery: {}
+            f:gloo: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:gloo: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:10Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:14Z"
+    name: gloo-system-gateway-443
+    namespace: gloo-system
+    resourceVersion: "178497"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/gloo-system-gateway-443
+    uid: b2e62e89-0239-4106-93bf-c29ab7d3da41
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        gloo: gateway
+      serviceName: gateway
+      serviceNamespace: gloo-system
+      servicePort: 443
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:17Z"
+    generation: 2
+    labels:
+      app: gloo
+      discovered_by: kubernetesplugin
+      gateway-proxy-id: gateway-proxy
+      gloo: gateway-proxy
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+            f:gateway-proxy-id: {}
+            f:gloo: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:gateway-proxy: {}
+              f:gateway-proxy-id: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:17Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:26Z"
+    name: gloo-system-gateway-proxy-443
+    namespace: gloo-system
+    resourceVersion: "178547"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/gloo-system-gateway-proxy-443
+    uid: 95e33d06-ef13-40f2-a371-8875ea059476
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        gateway-proxy: live
+        gateway-proxy-id: gateway-proxy
+      serviceName: gateway-proxy
+      serviceNamespace: gloo-system
+      servicePort: 443
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:17Z"
+    generation: 2
+    labels:
+      app: gloo
+      discovered_by: kubernetesplugin
+      gateway-proxy-id: gateway-proxy
+      gloo: gateway-proxy
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+            f:gateway-proxy-id: {}
+            f:gloo: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:gateway-proxy: {}
+              f:gateway-proxy-id: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:17Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:22Z"
+    name: gloo-system-gateway-proxy-80
+    namespace: gloo-system
+    resourceVersion: "178533"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/gloo-system-gateway-proxy-80
+    uid: 29e1611b-e7a3-4e2b-8aeb-67d9b67cf9b2
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        gateway-proxy: live
+        gateway-proxy-id: gateway-proxy
+      serviceName: gateway-proxy
+      serviceNamespace: gloo-system
+      servicePort: 80
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:15Z"
+    generation: 2
+    labels:
+      app: gloo
+      discovered_by: kubernetesplugin
+      gloo: gloo
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+            f:gloo: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:gloo: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:15Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:23Z"
+    name: gloo-system-gloo-9966
+    namespace: gloo-system
+    resourceVersion: "178537"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/gloo-system-gloo-9966
+    uid: ebf3e14a-9c1b-4fa9-b4a6-a220d65255a3
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        gloo: gloo
+      serviceName: gloo
+      serviceNamespace: gloo-system
+      servicePort: 9966
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:14Z"
+    generation: 2
+    labels:
+      app: gloo
+      discovered_by: kubernetesplugin
+      gloo: gloo
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+            f:gloo: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:gloo: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+          f:useHttp2: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:14Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:24Z"
+    name: gloo-system-gloo-9977
+    namespace: gloo-system
+    resourceVersion: "178541"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/gloo-system-gloo-9977
+    uid: 15bedd61-4d96-4b56-a844-4f6be62a2efa
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        gloo: gloo
+      serviceName: gloo
+      serviceNamespace: gloo-system
+      servicePort: 9977
+    useHttp2: true
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:15Z"
+    generation: 2
+    labels:
+      app: gloo
+      discovered_by: kubernetesplugin
+      gloo: gloo
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+            f:gloo: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:gloo: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:15Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:21Z"
+    name: gloo-system-gloo-9979
+    namespace: gloo-system
+    resourceVersion: "178527"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/gloo-system-gloo-9979
+    uid: 806dff75-48bf-42d2-8835-e6fa13848acc
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        gloo: gloo
+      serviceName: gloo
+      serviceNamespace: gloo-system
+      servicePort: 9979
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    creationTimestamp: "2020-06-17T17:40:14Z"
+    generation: 2
+    labels:
+      app: gloo
+      discovered_by: kubernetesplugin
+      gloo: gloo
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+            f:gloo: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:gloo: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+          f:useHttp2: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:14Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:25Z"
+    name: gloo-system-gloo-9988
+    namespace: gloo-system
+    resourceVersion: "178546"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/gloo-system-gloo-9988
+    uid: 01692899-b74a-4213-9734-8e1cd4caf2cf
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        gloo: gloo
+      serviceName: gloo
+      serviceNamespace: gloo-system
+      servicePort: 9988
+    useHttp2: true
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","k8s-app":"calico-typha"},"name":"calico-typha","namespace":"kube-system"},"spec":{"ports":[{"name":"calico-typha","port":5473,"protocol":"TCP","targetPort":"calico-typha"}],"selector":{"k8s-app":"calico-typha"}}}
+    creationTimestamp: "2020-06-17T17:40:11Z"
+    generation: 2
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      discovered_by: kubernetesplugin
+      k8s-app: calico-typha
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:addonmanager.kubernetes.io/mode: {}
+            f:discovered_by: {}
+            f:k8s-app: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:k8s-app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:11Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:15Z"
+    name: kube-system-calico-typha-5473
+    namespace: gloo-system
+    resourceVersion: "178502"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/kube-system-calico-typha-5473
+    uid: d26c9b93-a658-40d4-a296-101afaa653c3
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        k8s-app: calico-typha
+      serviceName: calico-typha
+      serviceNamespace: kube-system
+      servicePort: 5473
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","k8s-app":"kube-dns","kubernetes.io/cluster-service":"true","kubernetes.io/name":"CoreDNS"},"name":"kube-dns","namespace":"kube-system"},"spec":{"clusterIP":"172.24.0.10","ports":[{"name":"dns","port":53,"protocol":"UDP"},{"name":"dns-tcp","port":53,"protocol":"TCP"}],"selector":{"k8s-app":"kube-dns"}}}
+    creationTimestamp: "2020-06-17T17:40:09Z"
+    generation: 2
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      discovered_by: kubernetesplugin
+      k8s-app: kube-dns
+      kubernetes.io/cluster-service: "true"
+      kubernetes.io/name: CoreDNS
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:addonmanager.kubernetes.io/mode: {}
+            f:discovered_by: {}
+            f:k8s-app: {}
+            f:kubernetes.io/cluster-service: {}
+            f:kubernetes.io/name: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:k8s-app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:09Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:11Z"
+    name: kube-system-kube-dns-53
+    namespace: gloo-system
+    resourceVersion: "178481"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/kube-system-kube-dns-53
+    uid: a1ba1174-7c66-496a-a755-92f95f10e678
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        k8s-app: kube-dns
+      serviceName: kube-dns
+      serviceNamespace: kube-system
+      servicePort: 53
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","kubernetes.io/cluster-service":"true","kubernetes.io/name":"Metrics-server"},"name":"metrics-server","namespace":"kube-system"},"spec":{"ports":[{"port":443,"protocol":"TCP","targetPort":443}],"selector":{"k8s-app":"metrics-server"}}}
+    creationTimestamp: "2020-06-17T17:40:11Z"
+    generation: 2
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      discovered_by: kubernetesplugin
+      kubernetes.io/cluster-service: "true"
+      kubernetes.io/name: Metrics-server
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:addonmanager.kubernetes.io/mode: {}
+            f:discovered_by: {}
+            f:kubernetes.io/cluster-service: {}
+            f:kubernetes.io/name: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:k8s-app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:11Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:16Z"
+    name: kube-system-metrics-server-443
+    namespace: gloo-system
+    resourceVersion: "178506"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/kube-system-metrics-server-443
+    uid: b3601f0f-ba9e-4dd7-8584-3f8346156929
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        k8s-app: metrics-server
+      serviceName: metrics-server
+      serviceNamespace: kube-system
+      servicePort: 443
+  status:
+    reported_by: gloo
+    state: 1
+- apiVersion: gloo.solo.io/v1
+  kind: Upstream
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"tripviewer"},"name":"tripviewer","namespace":"web"},"spec":{"ports":[{"port":8080,"targetPort":80}],"selector":{"app":"tripviewer"}}}
+    creationTimestamp: "2020-06-17T17:40:12Z"
+    generation: 2
+    labels:
+      app: tripviewer
+      discovered_by: kubernetesplugin
+    managedFields:
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:discovered_by: {}
+        f:spec:
+          .: {}
+          f:discoveryMetadata: {}
+          f:kube:
+            .: {}
+            f:selector:
+              .: {}
+              f:app: {}
+            f:serviceName: {}
+            f:serviceNamespace: {}
+            f:servicePort: {}
+        f:status: {}
+      manager: discovery
+      operation: Update
+      time: "2020-06-17T17:40:12Z"
+    - apiVersion: gloo.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          f:reported_by: {}
+          f:state: {}
+      manager: gloo
+      operation: Update
+      time: "2020-06-17T17:40:17Z"
+    name: web-tripviewer-8080
+    namespace: gloo-system
+    resourceVersion: "178516"
+    selfLink: /apis/gloo.solo.io/v1/namespaces/gloo-system/upstreams/web-tripviewer-8080
+    uid: 16150cf8-7c5b-4254-911d-9d8dfdc88eb7
+  spec:
+    discoveryMetadata: {}
+    kube:
+      selector:
+        app: tripviewer
+      serviceName: tripviewer
+      serviceNamespace: web
+      servicePort: 8080
+  status:
+    reported_by: gloo
+    state: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items:
+- apiVersion: gateway.solo.io/v1
+  kind: VirtualService
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"gateway.solo.io/v1","kind":"VirtualService","metadata":{"annotations":{},"name":"trip-insights","namespace":"gloo-system"},"spec":{"virtualHost":{"domains":["tripinsights.jorgecortes.ml"],"routes":[{"matchers":[{"exact":"/api/docs/user","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"userprofile","namespace":"api"}}}}},{"matchers":[{"exact":"/api/user","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"userprofile","namespace":"api"}}}}},{"matchers":[{"methods":["DELETE","GET","PATCH","POST"],"regex":"/api/user/[A-Fa-f0-9-]{36}"}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"userprofile","namespace":"api"}}}}},{"matchers":[{"exact":"/api/metrics","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"user-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/api-docs","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"user-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/swagger-resources","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"user-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/documentation/user-java","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"user-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/docs/user-java","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"user-api","namespace":"api"}}}}},{"matchers":[{"methods":["PATCH","POST"],"regex":"/api/user-java/[A-Fa-f0-9-]{36}"}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"user-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/user-java/healthcheck","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"user-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/json","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"trips-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/docs/trips","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"trips-api","namespace":"api"}}}}},{"matchers":[{"methods":["PATCH","POST","GET","DELETE"],"prefix":"/api/trips/"}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"trips-api","namespace":"api"}}}}},{"matchers":[{"methods":["GET","POST"],"prefix":"/api/poi"}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"poi-api","namespace":"api"}}}}},{"matchers":[{"exact":"/api/docs/poi","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"poi-api","namespace":"api"}}}}},{"matchers":[{"exact":"/swagger/docs/poi","methods":["GET"]}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"poi-api","namespace":"api"}}}}},{"matchers":[{"exact":"/UserProfile"}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"tripviewer","namespace":"web"}}}}},{"matchers":[{"exact":"/Trip"}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"tripviewer","namespace":"web"}}}}},{"matchers":[{"exact":"/"}],"routeAction":{"single":{"kube":{"port":8080,"ref":{"name":"tripviewer","namespace":"web"}}}}}]}}}
+    creationTimestamp: "2020-06-18T00:56:11Z"
+    generation: 2
+    managedFields:
+    - apiVersion: gateway.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:annotations:
+            .: {}
+            f:kubectl.kubernetes.io/last-applied-configuration: {}
+        f:spec:
+          .: {}
+          f:virtualHost:
+            .: {}
+            f:domains: {}
+            f:routes: {}
+      manager: kubectl
+      operation: Update
+      time: "2020-06-18T00:56:11Z"
+    - apiVersion: gateway.solo.io/v1
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:status:
+          .: {}
+          f:reported_by: {}
+          f:state: {}
+          f:subresource_statuses:
+            .: {}
+            f:*v1.Proxy.gloo-system.gateway-proxy:
+              .: {}
+              f:reported_by: {}
+              f:state: {}
+      manager: gateway
+      operation: Update
+      time: "2020-06-18T00:56:16Z"
+    name: trip-insights
+    namespace: gloo-system
+    resourceVersion: "248952"
+    selfLink: /apis/gateway.solo.io/v1/namespaces/gloo-system/virtualservices/trip-insights
+    uid: 94af0de7-3109-469b-9544-664b0c688de1
+  spec:
+    virtualHost:
+      domains:
+      - tripinsights.jorgecortes.ml
+      routes:
+      - matchers:
+        - exact: /api/docs/user
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: userprofile
+                namespace: api
+      - matchers:
+        - exact: /api/user
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: userprofile
+                namespace: api
+      - matchers:
+        - methods:
+          - DELETE
+          - GET
+          - PATCH
+          - POST
+          regex: /api/user/[A-Fa-f0-9-]{36}
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: userprofile
+                namespace: api
+      - matchers:
+        - exact: /api/metrics
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: user-api
+                namespace: api
+      - matchers:
+        - exact: /api/api-docs
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: user-api
+                namespace: api
+      - matchers:
+        - exact: /api/swagger-resources
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: user-api
+                namespace: api
+      - matchers:
+        - exact: /api/documentation/user-java
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: user-api
+                namespace: api
+      - matchers:
+        - exact: /api/docs/user-java
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: user-api
+                namespace: api
+      - matchers:
+        - methods:
+          - PATCH
+          - POST
+          regex: /api/user-java/[A-Fa-f0-9-]{36}
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: user-api
+                namespace: api
+      - matchers:
+        - exact: /api/user-java/healthcheck
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: user-api
+                namespace: api
+      - matchers:
+        - exact: /api/json
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: trips-api
+                namespace: api
+      - matchers:
+        - exact: /api/docs/trips
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: trips-api
+                namespace: api
+      - matchers:
+        - methods:
+          - PATCH
+          - POST
+          - GET
+          - DELETE
+          prefix: /api/trips/
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: trips-api
+                namespace: api
+      - matchers:
+        - methods:
+          - GET
+          - POST
+          prefix: /api/poi
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: poi-api
+                namespace: api
+      - matchers:
+        - exact: /api/docs/poi
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: poi-api
+                namespace: api
+      - matchers:
+        - exact: /swagger/docs/poi
+          methods:
+          - GET
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: poi-api
+                namespace: api
+      - matchers:
+        - exact: /UserProfile
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: tripviewer
+                namespace: web
+      - matchers:
+        - exact: /Trip
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: tripviewer
+                namespace: web
+      - matchers:
+        - exact: /
+        routeAction:
+          single:
+            kube:
+              port: 8080
+              ref:
+                name: tripviewer
+                namespace: web
+  status:
+    reported_by: gateway
+    state: 1
+    subresource_statuses:
+      '*v1.Proxy.gloo-system.gateway-proxy':
+        reported_by: gloo
+        state: 1
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
+
+---
+apiVersion: v1
+items: []
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

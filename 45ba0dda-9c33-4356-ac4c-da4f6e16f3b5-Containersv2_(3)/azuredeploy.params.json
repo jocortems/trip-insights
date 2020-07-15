@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "imageName": {
+            "value": "vyta/ohv2:2.0"
+        },
+        "location": {
+            "value": "eastus"
+        },
+        "simulatorLocation": {
+            "value": ""
+        },
+        "imageRegistryUsername": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/f9d504f9-f885-48ec-a3cf-8d145cddd425/resourceGroups/infra/providers/Microsoft.KeyVault/vaults/containersv2-kv"
+              },
+              "secretName": "imageRegistryUsername"
+            }
+        },
+        "imageRegistryPassword": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/f9d504f9-f885-48ec-a3cf-8d145cddd425/resourceGroups/infra/providers/Microsoft.KeyVault/vaults/containersv2-kv"
+              },
+              "secretName": "imageRegistryPassword"
+            }
+        },
+        "registryName": {
+            "reference": {
+              "keyVault": {
+                "id": "/subscriptions/f9d504f9-f885-48ec-a3cf-8d145cddd425/resourceGroups/infra/providers/Microsoft.KeyVault/vaults/containersv2-kv"
+              },
+              "secretName": "registryName"
+            }
+        }
+    }
+}

@@ -1,0 +1,159 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "containerName": {
+            "type": "string",
+            "defaultValue": "teamdeploy"
+        },
+        "imageName": {
+            "type": "string"
+        },
+        "numberCpuCores": {
+            "type": "string",
+            "defaultValue": "1"
+        },
+        "memory": {
+            "type": "string",
+            "defaultValue": "1.5"
+        },
+        "restartPolicy": {
+            "type": "string",
+            "allowedValues": [
+                "OnFailure",
+                "Always",
+                "Never"
+            ],
+            "defaultValue": "Never"
+        },
+        "azureUserName": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "azurePassword": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "recipientEmail": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "ChatConnectionString": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "ChatMessageQueue": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "TenantId": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "simulatorLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
+        },
+        "resourceGroupName": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "proctorResourceGroup": {
+            "type": "string",
+            "defaultValue": "\"\""
+        },
+        "registryName": {
+            "type": "securestring"
+        },
+        "imageRegistryUsername": {
+            "type": "securestring"
+        },
+        "imageRegistryPassword": {
+            "type": "securestring"
+        }
+    },
+    "resources": [
+        {
+            "location": "[resourceGroup().location]",
+            "name": "[parameters('containerName')]",
+            "type": "Microsoft.ContainerInstance/containerGroups",
+            "apiVersion": "2018-04-01",
+            "properties": {
+                "containers": [
+                    {
+                        "name": "[parameters('containerName')]",
+                        "properties": {
+                            "image": "[parameters('imageName')]",
+                            "resources": {
+                                "requests": {
+                                    "cpu": "[int(parameters('numberCpuCores'))]",
+                                    "memoryInGB": "[float(parameters('memory'))]"
+                                }
+                            },
+                            "environmentVariables": [
+                                {
+                                    "name": "TENANTID",
+                                    "value": "[parameters('TenantId')]"
+                                },
+                                {
+                                    "name": "AZUREUSER",
+                                    "value": "[parameters('azureUserName')]"
+                                },
+                                {
+                                    "name": "AZUREPASS",
+                                    "value": "[parameters('azurePassword')]"
+                                },
+                                {
+                                    "name": "SUBID",
+                                    "value": "[subscription().subscriptionId]"
+                                },
+                                {
+                                    "name": "LOCATION",
+                                    "value": "[parameters('location')]"
+                                },
+                                {
+                                    "name": "SIMULATORLOCATION",
+                                    "value": "[parameters('simulatorLocation')]"
+                                },
+                                {
+                                    "name": "RECIPIENTEMAIL",
+                                    "value": "[parameters('recipientEmail')]"
+                                },
+                                {
+                                    "name": "CHATCONNECTIONSTRING",
+                                    "value": "[parameters('ChatConnectionString')]"
+                                },
+                                {
+                                    "name": "CHATMSGQUEUE",
+                                    "value": "[parameters('ChatMessageQueue')]"
+                                },
+                                {
+                                    "name": "RESOURCEGROUPNAME",
+                                    "value": "[parameters('resourceGroupName')]"
+                                },
+                                {
+                                    "name": "PROCTORRESOURCEGROUP",
+                                    "value": "[parameters('proctorResourceGroup')]"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "imageRegistryCredentials": [
+                {
+                    "server": "[parameters('registryName')]",
+                    "username": "[parameters('imageRegistryUsername')]",
+                    "password": "[parameters('imageRegistryPassword')]"
+                }
+                ],
+                "restartPolicy": "[parameters('restartPolicy')]",
+                "osType": "Linux"
+            },
+            "tags": {}
+        }
+    ]
+}
